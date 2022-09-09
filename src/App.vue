@@ -1,7 +1,7 @@
 <template>
   <!-- <RouterView /> -->
   <div class="container">
-    <h1>hello world</h1>
+    <Header title="Task Tracker"/>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import Header from './components/Header.vue'
 export default{
   name: 'App',
   components: {
-    Header
+    Header,
   }
 }
 </script>
