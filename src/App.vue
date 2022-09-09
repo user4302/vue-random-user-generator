@@ -2,22 +2,47 @@
   <!-- <RouterView /> -->
   <div class="container">
     <Header title="Task Tracker"/>
+    <Tasks :tasks="tasks"/>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import Tasks from './components/Tasks.vue'
 
 export default{
   name: 'App',
   components: {
     Header,
+    Tasks
+  },
+  data(){
+    return{
+      tasks: []
+    }
+  },
+  created(){
+    this.tasks = [
+      {
+        id:1,
+        text: 'Task 1',
+        day: 'tasks day 1',
+        reminder: true
+      },
+      {
+        id:2,
+        text: 'Task 2',
+        day: 'tasks day 2',
+        reminder: false
+      }
+    ]
   }
 }
 </script>
 
-<style scoped>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
