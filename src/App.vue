@@ -1,72 +1,78 @@
 <template>
   <div class="container">
-    <Header @toggle-add-task="toggleAddTask" title="Task Tracker" :showAddTask="showAddTask" />
-    <div v-show="showAddTask">
-      <AddTask @add-task="addTask"/>
+    <AppHeader
+      @toggle-add-task="toggleAddTaskForm"
+      title="Task Tracker"
+      :showAddTaskForm="showAddTaskForm"
+    />
+    <div v-show="showAddTaskForm">
+      <AddTaskForm @add-task="addTask" />
     </div>
-    <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
+    <RenderedTasks
+      @toggle-reminder="toggleReminder"
+      @delete-task="deleteTask"
+      :tasks="tasks"
+    />
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Tasks from './components/Tasks.vue'
-import AddTask from './components/AddTask.vue'
+import AppHeader from "./components/AppHeader.vue";
+import RenderedTasks from "./components/RenderedTasks.vue";
+import AddTaskForm from "./components/AddTaskForm.vue";
 
-export default{
-  name: 'App',
+export default {
+  name: "App",
   components: {
-    Header,
-    Tasks,
-    AddTask
+    AppHeader,
+    RenderedTasks,
+    AddTaskForm,
   },
-  data(){
-    return{
+  data() {
+    return {
       tasks: [],
-      showAddTask: false
-    }
+      showAddTaskForm: false,
+    };
   },
   methods: {
-    toggleAddTask(){
-      this.showAddTask = !this.showAddTask
+    toggleAddTaskForm() {
+      this.showAddTaskForm = !this.showAddTaskForm;
     },
-    addTask(task){
-      this.tasks = [...this.tasks, task]
+    addTask(task) {
+      this.tasks = [...this.tasks, task];
     },
-    deleteTask(id){
-      if(confirm('Are you sure?')){
-        this.tasks = this.tasks.filter(task => task.id !== id)
+    deleteTask(id) {
+      if (confirm("Are you sure?")) {
+        this.tasks = this.tasks.filter((task) => task.id !== id);
       }
     },
-    toggleReminder(id){
-      this.tasks = this.tasks.map(task => 
-      task.id === id
-        ? {...task, reminder: !task.reminder} 
-        : task
-      )
-    }
+    toggleReminder(id) {
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
+    },
   },
-  created(){
+  created() {
     this.tasks = [
       {
-        id:1,
-        text: 'Task 1',
-        day: 'tasks day 1',
-        reminder: true
+        id: 1,
+        text: "Task 1",
+        day: "tasks day 1",
+        reminder: true,
       },
       {
-        id:2,
-        text: 'Task 2',
-        day: 'tasks day 2',
-        reminder: false
-      }
-    ]
-  }
-}
+        id: 2,
+        text: "Task 2",
+        day: "tasks day 2",
+        reminder: false,
+      },
+    ];
+  },
+};
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 
 * {
   box-sizing: border-box;
@@ -74,7 +80,7 @@ export default{
   padding: 0;
 }
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 .container {
   max-width: 500px;
